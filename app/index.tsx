@@ -1,16 +1,50 @@
+import Button from '@/components/Button';
+import Input, { InputTypes, ReturnKeyTypes } from '@/components/Input';
+import SafeInputView from '@/components/SafeInputView';
 import { Link } from 'expo-router';
+import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-const Index = () => {
+const SignInScreen = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
-    <View style={styles.container}>
-      <Text>로그인화면</Text>
-      <Link href="SignUpScreen">회원가입</Link>
-      <Link href="TestScreen">Test</Link>
-      <Link href="taps">탭화면</Link>
-    </View>
+    <SafeInputView>
+      <View style={styles.container}>
+        <Text>Sign In</Text>
+        <Input
+          value={email}
+          onChangeType={(text) => setEmail(text)}
+          inputType={InputTypes.EMAIL}
+          returnKeyType={ReturnKeyTypes.NEXT}
+          styles={inputStyles}
+        />
+        <Input
+          value={password}
+          onChangeType={(text) => setPassword(text)}
+          inputType={InputTypes.PASSWORD}
+          returnKeyType={ReturnKeyTypes.DONE}
+          styles={inputStyles}
+        />
+
+        <Button
+          title="Sign In"
+          onPress={() => {}}
+          styles={{ button: { borderRadius: 8 } }}
+        />
+
+        <Link
+          href="SignUpScreen"
+          style={{ paddingHorizontal: 20, marginTop: 20 }}
+        >
+          회원가입
+        </Link>
+      </View>
+    </SafeInputView>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -18,4 +52,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-export default Index;
+
+const inputStyles = StyleSheet.create({
+  container: {
+    marginBottom: 20,
+    paddingHorizontal: 20,
+  },
+  input: {
+    borderWidth: 1,
+    borderRadius: 8,
+  },
+});
+
+export default SignInScreen;
